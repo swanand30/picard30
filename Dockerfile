@@ -10,7 +10,9 @@ FROM pytorch/pytorch:1.11.0-cuda11.3-cudnn8-devel as dev
 ARG TOOLKIT_USER_ID=13011
 ARG TOOLKIT_GROUP_ID=13011
 
-RUN apt-key del 7fa2af80 \
+RUN apt-key del 7fa2af80
+ADD https://developer.download.nvidia.com/compute/cuda/repos/ubuntu2004/x86_64/cuda-keyring_1.0-1_all.deb .
+RUN dpkg -i cuda-keyring_1.0-1_all.deb \
     && apt-key adv --fetch-keys http://developer.download.nvidia.com/compute/cuda/repos/ubuntu2004/x86_64/3bf863cc.pub \
     && apt-get update \
     && apt-get install -y -q git curl unzip make gettext \
