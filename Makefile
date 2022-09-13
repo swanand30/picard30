@@ -98,7 +98,7 @@ build-eval-image:
 
 .PHONY: pull-eval-image
 pull-eval-image:
-	docker pull tscholak/$(EVAL_IMAGE_NAME):$(GIT_HEAD_REF)
+	docker pull tscholak/$(EVAL_IMAGE_NAME):35f43caadadde292f84e83962fbe5320a65d338f
 
 .PHONY: train
 train: pull-train-image
@@ -177,7 +177,7 @@ serve: pull-eval-image
 		--mount type=bind,source=$(BASE_DIR)/database,target=/database \
 		--mount type=bind,source=$(BASE_DIR)/transformers_cache,target=/transformers_cache \
 		--mount type=bind,source=$(BASE_DIR)/configs,target=/app/configs \
-		tscholak/$(EVAL_IMAGE_NAME):$(GIT_HEAD_REF) \
+		tscholak/$(EVAL_IMAGE_NAME):35f43caadadde292f84e83962fbe5320a65d338f \
 		/bin/bash -c "pip install uvicorn[standard] && pip install wsproto && python seq2seq/serve_seq2seq.py configs/serve.json"
 
 .PHONY: prediction_output
