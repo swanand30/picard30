@@ -1,17 +1,24 @@
-ARG BASE_IMAGE
+# ARG BASE_IMAGE
 
 # ------------------------
 # Target: dev
 # ------------------------
-FROM $BASE_IMAGE as dev
+# FROM BASE_IMAGE as dev
+
+FROM pytorch/pytorch:1.11.0-cuda11.3-cudnn8-devel as dev
 
 ARG TOOLKIT_USER_ID=13011
 ARG TOOLKIT_GROUP_ID=13011
 
-RUN apt-get update \
-    # Required to save git hashes
+RUN apt-key del 7fa2af80 \
+    && apt-key adv --fetch-keys http://developer.download.nvidia.com/compute/cuda/repos/ubuntu1604/x86_64/3bf863cc.pub \
+    && apt-get update \
     && apt-get install -y -q git curl unzip make gettext \
     && rm -rf /var/lib/apt/lists/*
+
+#RUN apt-get update \
+#    && apt-get install -y -q git curl unzip make gettext \
+#    && rm -rf /var/lib/apt/lists/*
 
 WORKDIR /app
 ENV XDG_DATA_HOME=/app/.local/share \

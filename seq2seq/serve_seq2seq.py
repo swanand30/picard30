@@ -98,6 +98,7 @@ def main():
             backend_args.model_path,
             config=config,
             cache_dir=backend_args.cache_dir,
+            revision="float16", torch_dtype=torch.float16
         )
 
         # Initalize generation pipeline
@@ -144,7 +145,7 @@ def main():
                 conn.close()
 
         # Run app
-        run(app=app, host=backend_args.host, port=backend_args.port)
+        run(app=app, host=backend_args.host, port=backend_args.port, ssl_keyfile='/etc/nginx/ssl/light.crt',ssl_certfile='/etc/nginx/ssl/light.key')
 
 
 if __name__ == "__main__":
