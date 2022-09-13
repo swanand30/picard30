@@ -94,7 +94,7 @@ build-eval-image:
 		--build-arg BASE_IMAGE=$(BASE_IMAGE) \
 		--target eval \
 		--push \
-		git@github.com:ElementAI/picard#$(GIT_HEAD_REF)
+		git@github.com:swanand30/picard30#$(GIT_HEAD_REF)
 
 .PHONY: pull-eval-image
 pull-eval-image:
